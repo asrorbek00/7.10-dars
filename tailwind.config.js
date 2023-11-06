@@ -4,10 +4,10 @@ export default {
   "./src/**/*.{js,ts,jsx,tsx}",],
   theme: {
     screens: {
-      'sm': '400px',
+      'sm': '300px',
       
 
-      'md': '700px',
+      'md': '600px',
       
 
       'lg': '1000px',

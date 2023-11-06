@@ -1,15 +1,26 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useFetch } from '../hook/useFetch'
+
 
 import Loading from '../components/Loading'
 import { Link } from 'react-router-dom'
+import Galerey from './Galerey'
+
+
+
+ function getinpValueFromLocalSorage (){
+  return localStorage.getItem("inpValue") || 'featured'
+ }
 
 function HomePage() {
-  const [page , setPage] = useState(1)
-    const [url , setUrl] = useState(`https://api.unsplash.com/search/photos?client_id=WcvV7A0PlFwGT-VVc7BtAkE9ehVFI6NEH-EzBHK64DI&page=${page}&query=featured`)
-    const [input , setInput] = useState('featured')
+    const [page , setPage] = useState(1)
+   
+    const [input , setInput] = useState(getinpValueFromLocalSorage)
+
+    const [url , setUrl] = useState(`https://api.unsplash.com/search/photos?client_id=WcvV7A0PlFwGT-VVc7BtAkE9ehVFI6NEH-EzBHK64DI&page=${page}&query=${input}`)
    
     const {data, isPending , error} = useFetch(url)
+    
     const getVal = (e)=>{
         setInput(e.target.value)
     }
@@ -30,6 +41,10 @@ function HomePage() {
       setUrl(`https://api.unsplash.com/search/photos?client_id=WcvV7A0PlFwGT-VVc7BtAkE9ehVFI6NEH-EzBHK64DI&page=${page}&query=${input}`)
      
     }
+    useEffect(()=>{
+      localStorage.setItem("inpValue" , input)
+    },[search])
+    
 
   return (
      <>
@@ -45,15 +60,7 @@ function HomePage() {
        </form>
        <button className='btn btn-accent'onClick={search} >Search</button>
        </div>
-       <div className='grid gap-4 my-24 lg:grid-cols-3 lg:mx-36 sm:grid-cols-1 sm:mx-12 md:grid-cols-2 md:mx-24'>
-       {data && data.results.map((photo)=>{
-        return  <div key={photo.id} >
-        <Link to={`/${photo.id}`}>
-          <img src={photo.urls.small} alt="" />
-          </Link>
-        </div>
-       })}
-       </div> 
+       <Galerey data={data}/>
        <div className="join lg:ml-[45%] md:ml-[40%] sm:ml-[35%]" >
   <button className="join-item btn" onClick={pageMinus}>«</button>
   <button className="join-item btn">{page}</button>

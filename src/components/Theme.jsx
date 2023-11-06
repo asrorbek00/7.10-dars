@@ -21,9 +21,11 @@ const Theme = () => {
     }
     
   return (
+    <div className='mt-2'>
     <p className='cursor-pointer text-black' onClick={changeMode}>
-        {mode == "light" ? <FaMoon/> : <FaSun fill='yellow'/>}
-    </p>
+        {mode == "light" ? <FaMoon size={20}/> : <FaSun  size={20}fill='yellow'/>}
+    </p> 
+    </div>
   )
 }
 

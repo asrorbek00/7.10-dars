@@ -6,3 +6,32 @@ img{
   width: 100%;
   height: 300px;
 }
+.hamburger{
+  display: none;
+}
+.custom1{
+  display: none;
+}
+.user{
+  display: none;
+}
+
+@media screen and (max-width: 600px) {
+  .custom{
+    display: none;
+  }
+  .hamburger{
+     display: flex;
+     cursor: pointer;
+  }
+  .user{
+    display: none;
+  }
+  .custom1{
+    display: flex;
+  }
+  .user{
+    display: flex;
+  }
+}
+
